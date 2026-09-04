@@ -1,0 +1,38 @@
+# In this file you can add vehicle models that you don't want to see in the game.
+# Each model should be on a new line. Specify the name of the model, not its hash.
+# Example:
+# slamtruck
+# cavalcade3
+# dorado
+
+# hover / fly capable - NPC traffic AI flips them and they trip ScriptHookV
+oppressor
+oppressor2
+deluxo
+thruster
+
+# amphibious transform cars - dive-mode states misbehave under AI
+stromberg
+toreador
+
+# massive trailers - clip road geometry and land upside down
+terbyte
+moc
+
+# police-liveried online vehicles - stop cop cars spawning at parking lots
+# (e.g. the two that always sat outside Lester's place)
+riot2
+polgauntlet
+police5
+polbuffalo
+polbuffalo6
+poldorado
+polimpaler5
+polgreenwood
+policet3
+policeb2
+polignus
+polcoquette4
+polcaracara
+polfaction2
+polterminus

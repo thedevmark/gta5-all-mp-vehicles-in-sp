@@ -699,6 +699,30 @@ public class SpawnMP : Script
         VehList.addon_models.Add(Model);
     }
 
+    private List<string> _mixedFallback;
+
+    // Fork fix (thedevmark): a class emptied by mp_blacklist.txt no longer kills
+    // its parking lots. Lots assigned e.g. police models with the whole class
+    // blacklisted now fall back to ordinary street cars instead of spawning
+    // nothing (upstream returned null and left the lot permanently dead).
+    string MixedFallbackPick()
+    {
+        if (_mixedFallback == null)
+        {
+            _mixedFallback = new List<string>();
+            _mixedFallback.AddRange(VehList.models_sedans);
+            _mixedFallback.AddRange(VehList.models_coupes);
+            _mixedFallback.AddRange(VehList.models_compacts);
+            _mixedFallback.AddRange(VehList.models_muscle);
+            _mixedFallback.AddRange(VehList.models_sportclassic);
+            _mixedFallback.AddRange(VehList.models_supers);
+            _mixedFallback.AddRange(VehList.models_tuners);
+            _mixedFallback.AddRange(VehList.models_suvs);
+        }
+        if (_mixedFallback.Count == 0) return null;
+        return _mixedFallback[_rnd.Next(_mixedFallback.Count)];
+    }
+
     string GenerateVehicleModelName(int index_db)
     {
         plate_id = -1;
@@ -708,14 +732,14 @@ public class SpawnMP : Script
         if (_singleByIndex.TryGetValue(index_db, out single))
         {
             string m = single();
-            if (string.IsNullOrEmpty(m) || m == "Blocked") return null;
+            if (string.IsNullOrEmpty(m) || m == "Blocked") return MixedFallbackPick();
             return m;
         }
 
         if (index_db < 0 || index_db >= _listByIndex.Length) return null;
 
         List<string> list = _listByIndex[index_db];
-        if (list == null || list.Count == 0) return null;
+        if (list == null || list.Count == 0) return MixedFallbackPick();
 
         int plate;
         if (_plateByIndex.TryGetValue(index_db, out plate)) plate_id = plate;

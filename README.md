@@ -1,4 +1,7 @@
 # gta5-all-mp-vehicles-in-sp
+
+> **Config-hardened fork** maintained by [thedevmark](https://github.com/thedevmark) — one spawner fix (a vehicle class emptied by the blacklist now falls back to ordinary street cars instead of leaving its parking lots permanently dead) plus a tuned **Healthy Mixed Mode** default config. Full credit for the mod itself goes to [sruckstar](https://github.com/sruckstar); everything else in this README is upstream. Details of the fork's changes: [UPGRADES.md](UPGRADES.md).
+
 The mod adds all the vehicles from GTA Online to GTA 5. The new cars can be found in parking lots throughout Los Santos and Blaine County and on the road in general traffic.
 
 - All content from GTA Online is added, including air and water vehicles, except vehicles from previous updates that are available in Single Player.
