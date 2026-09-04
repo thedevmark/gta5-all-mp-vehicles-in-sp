@@ -41,16 +41,19 @@ preset = los_santos_balanced
 
 The tuning philosophy: the streets should feel quietly richer than stock — recognizably Los Santos, not a car meet. If you want chaos, raise `max_traffic_vehicles` toward 10; everything else here holds.
 
-## Default blacklist
+## Default blacklist: mechanical fixes only
 
-Ships in [`config/mp_blacklist.txt`](config/mp_blacklist.txt), 27 entries, each group earned in testing:
+Ships in [`config/mp_blacklist.txt`](config/mp_blacklist.txt), 12 entries — every one a mechanical defect, not a taste call:
 
-- **15 police-liveried models** (`polgauntlet`, `police5`, `polgreenwood`, `riot2`, …). The parking system assigns one class per lot; police-assigned lots park two cop cars there forever. Felt like a bug, played like one too.
 - **4 hover/fly vehicles** (`oppressor`, `oppressor2`, `deluxo`, `thruster`). NPC traffic AI cannot place or fly them — they land upside down, and they correlate with our crash telemetry: three game crashes, all identical access violations inside `ScriptHookV.dll` at offset `0x1c9fe`, during sessions with these in traffic.
 - **2 amphibious transform cars** (`stromberg`, `toreador`) — transform states misbehave under AI drivers.
 - **2 mega-trailers** (`terbyte`, `moc`) — clip road geometry, land flipped.
 
-All of this is one-line reversible: delete a model from the file and it returns on the next script reload (**Insert** in game).
+Everything else the mod spawns, it spawns by default in this fork too — **including the police vehicles**. The upstream author deliberately parks police-liveried models at lore-appropriate lots; finding a Gauntlet Interceptor staked out somewhere is part of the mod's character, so it stays.
+
+### Taste recipe: no permanent cop stakeouts
+
+If a lot near you draws the police class and two cruisers sitting there forever breaks your immersion (our original complaint: the lot by Lester's place), uncomment the police block at the bottom of `config/mp_blacklist.txt` (15 `pol*`/`riot2` models, listed and commented out). Because of this fork's fallback fix, those lots then spawn ordinary street cars instead of going dead — which is exactly why the fallback fix exists. One-line reversible, applies on the next **Insert** reload.
 
 ## Field notes from the test setup
 

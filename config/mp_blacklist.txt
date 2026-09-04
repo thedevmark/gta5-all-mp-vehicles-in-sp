@@ -5,34 +5,40 @@
 # cavalcade3
 # dorado
 
-# hover / fly capable - NPC traffic AI flips them and they trip ScriptHookV
+# --- Fork defaults (mechanical fixes only) ---
+# Hover / fly capable vehicles: NPC traffic AI cannot place or fly them - they
+# land upside down and correlate with repeated ScriptHookV access violations.
 oppressor
 oppressor2
 deluxo
 thruster
 
-# amphibious transform cars - dive-mode states misbehave under AI
+# Amphibious transform cars: dive-mode states misbehave under AI drivers.
 stromberg
 toreador
 
-# massive trailers - clip road geometry and land upside down
+# Mega-trailers: clip road geometry and land flipped.
 terbyte
 moc
 
-# police-liveried online vehicles - stop cop cars spawning at parking lots
-# (e.g. the two that always sat outside Lester's place)
-riot2
-polgauntlet
-police5
-polbuffalo
-polbuffalo6
-poldorado
-polimpaler5
-polgreenwood
-policet3
-policeb2
-polignus
-polcoquette4
-polcaracara
-polfaction2
-polterminus
+# --- Taste recipes (not enabled by default) ---
+# The mod deliberately parks police-liveried vehicles at lore-appropriate lots
+# (that occasional Gauntlet Interceptor is a feature). If permanent cop
+# stakeouts at an assigned lot annoy you, uncomment the block below - thanks to
+# this fork's fallback fix those lots will then spawn ordinary street cars
+# instead of going dead. See UPGRADES.md.
+#riot2
+#polgauntlet
+#police5
+#polbuffalo
+#polbuffalo6
+#poldorado
+#polimpaler5
+#polgreenwood
+#policet3
+#policeb2
+#polignus
+#polcoquette4
+#polcaracara
+#polfaction2
+#polterminus
