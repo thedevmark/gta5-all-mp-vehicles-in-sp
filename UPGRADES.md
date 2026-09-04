@@ -12,6 +12,12 @@ Real case: blacklisting all 15 police-liveried models (see below) killed every p
 
 Code: `ParkedMP.MixedFallbackPick()`, called from `GenerateVehicleModelName()` when a class list is empty or a single-model class returns `"Blocked"`.
 
+## The second code fix: traffic spawns never stack on survivors of the area clear
+
+**Upstream behavior:** with `ClearSpawnArea = 1`, the spawner clears a 6 m bubble at the chosen lane position and then *skips its own occupancy check* — on the assumption the bubble is empty. But `CLEAR_AREA_OF_VEHICLES` does not remove persistent script vehicles, and the mod's own ghost traffic is persistent. A stationary player makes the road-node search deterministic (same node returned every attempt), so consecutive spawns land on the same spot and stack. Observed live: three cars materializing on one node after a script reload.
+
+**Fork behavior:** a vehicle still standing within 5 m of the spawn position fails the attempt outright, regardless of the clear flag. Ambient traffic is still cleared exactly as before; only the stack-on-survivor case is refused. Code: the occupancy guard in `TrafficMP.AttemptSpawnOptimized`.
+
 ## Default config: Healthy Mixed Mode
 
 Ships in [`config/`](config/) — copy both files into your `scripts\` folder next to the DLL.

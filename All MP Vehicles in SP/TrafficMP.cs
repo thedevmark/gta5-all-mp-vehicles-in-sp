@@ -408,6 +408,12 @@ public class TrafficMP : Script
                 crowded = true;
 
                 // ClearSpawnArea has just emptied a 6m bubble, so only check when it is off.
+                // Fork fix: a vehicle still standing within 5m survived that clear -
+                // CLEAR_AREA_OF_VEHICLES does not remove persistent script cars, which
+                // is what our own ghost traffic is. Refuse the spot instead of
+                // stacking the next spawn on top of it (seen live: three cars
+                // materializing on one node while the player stood still).
+                if (spawnPos.DistanceTo(v.Position) <= 5.0f) return;
                 if (_clearAreaFlag != 1 && spawnPos.DistanceTo(v.Position) <= 7.0f) return;
             }
         }
