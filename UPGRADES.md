@@ -47,6 +47,10 @@ preset = los_santos_balanced
 
 The tuning philosophy: the streets should feel quietly richer than stock — recognizably Los Santos, not a car meet. If you want chaos, raise `max_traffic_vehicles` toward 10; everything else here holds.
 
+## Opt-in knob: TrafficRegularBias
+
+`ADVANCED TrafficRegularBias` (default `0` = stock behavior) sets the chance each traffic spawn uses an everyday class — compacts, sedans, SUVs, muscle, vans — regardless of zone. Stock selection is exotic-only in rich zones (sport classics and supers) and neighbor-copying elsewhere; at high bias values regular Online cars dominate traffic everywhere. Selection only: spawn rate, occupancy guards, and blacklist behavior are unchanged. Read by TrafficMP, written by hand into the ini.
+
 ## Default blacklist: mechanical fixes only
 
 Ships in [`config/mp_blacklist.txt`](config/mp_blacklist.txt), 12 entries — every one a mechanical defect, not a taste call:

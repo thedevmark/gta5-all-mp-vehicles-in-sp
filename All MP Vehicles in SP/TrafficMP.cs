@@ -26,6 +26,7 @@ public class TrafficMP : Script
     private float DespawnDistance = 500.0f;
     private int RespawnDelayMs = 3000;
     private const int SearchIntervalMs = 500;
+    private int _regularBias; // 0-100: chance each traffic spawn uses an everyday class
 
     private const int MissionGraceMs = 5000;
 
@@ -104,6 +105,13 @@ public class TrafficMP : Script
             DespawnDistance = config.GetValue<float>("ADVANCED", "DespawnDistance", 500.0f);
 
             _clearAreaFlag = config.GetValue<int>("ADVANCED", "ClearSpawnArea", 0);
+
+            // 0 = stock class selection. Higher = chance each spawn picks an everyday
+            // class (compacts/sedans/SUVs/muscle/vans) regardless of zone, so regular
+            // Online cars dominate traffic. Read-only like the other TrafficMP keys.
+            _regularBias = config.GetValue<int>("ADVANCED", "TrafficRegularBias", 0);
+            if (_regularBias < 0) _regularBias = 0;
+            if (_regularBias > 100) _regularBias = 100;
 
             // Add-on cars in traffic are experimental: many add-ons ship without proper
             // handling/layout data and crash the game once a driver is put in them.
@@ -564,7 +572,12 @@ public class TrafficMP : Script
 
         int vclass = 0;
 
-        if (isRichZone)
+        int[] everydayClasses = { 0, 1, 2, 4, 12 }; // compacts, sedans, SUVs, muscle, vans
+        if (_regularBias > 0 && _rnd.Next(100) < _regularBias)
+        {
+            vclass = everydayClasses[_rnd.Next(everydayClasses.Length)];
+        }
+        else if (isRichZone)
         {
             int[] richClasses = { 5, 6, 7 };
             vclass = richClasses[_rnd.Next(richClasses.Length)];
